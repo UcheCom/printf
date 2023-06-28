@@ -24,7 +24,7 @@ int handle_print(const char *fmat, int *ind, va_list list, char buffer[],
 	};
 	for (i = 0; fmat_types[i].fmat != '\0'; i++)
 		if (fmat[*ind] == fmat_types[i].fmat)
-			return (fmt_types[i].fn(list, buffer, flags, width, precision, size));
+			return (fmat_types[i].fn(list, buffer, flags, width, precision, size));
 
 	if (fmat_types[i].fmat == '\0')
 	{
@@ -42,7 +42,7 @@ int handle_print(const char *fmat, int *ind, va_list list, char buffer[],
 				--(*ind);
 			return (1);
 		}
-		unknow_len += write(1, &f[*ind], 1);
+		unknow_len += write(1, &fmat[*ind], 1);
 		return (unknow_len);
 	}
 	return (printed_chars);
