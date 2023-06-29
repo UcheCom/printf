@@ -1,6 +1,6 @@
 #include "main.h"
 
-void print_buffer(char buffer[], int *buff_ind);
+void print_buffer(char buffer[], int *buf_ind);
 
 /**
  * _printf - Prints formatted strings
@@ -13,7 +13,7 @@ void print_buffer(char buffer[], int *buff_ind);
 int _printf(const char *format, ...)
 {
 	va_list list;
-	int flags, width, precision, size, buff_ind = 0;
+	int flags, width, precision, size, buf_ind = 0;
 	int n, printed = 0, printed_chars = 0;
 	char buffer[BUFF_SIZE];
 
@@ -26,15 +26,15 @@ int _printf(const char *format, ...)
 	{
 		if (format[n] != '%')
 		{
-			buffer[buff_ind++] = format[n];
-			if (buff_ind == BUFF_SIZE)
-				print_buffer(buffer, &buff_ind);
+			buffer[buf_ind++] = format[n];
+			if (buf_ind == BUFF_SIZE)
+				print_buffer(buffer, &buf_ind);
 			/* write(1, &format[n], 1);*/
 			printed_chars++;
 		}
 		else
 		{
-			print_buffer(buffer, &buff_ind);
+			print_buffer(buffer, &buf_ind);
 			flags = get_flags(format, &n);
 			width = get_width(format, &n, list);
 			precision = get_precision(format, &n, list);
@@ -48,7 +48,7 @@ int _printf(const char *format, ...)
 		}
 	}
 
-	print_buffer(buffer, &buff_ind);
+	print_buffer(buffer, &buf_ind);
 
 	va_end(list);
 
@@ -58,13 +58,13 @@ int _printf(const char *format, ...)
 /**
  * print_buffer - Prints content of a buffer if is available
  * @buffer: Char arrays
- * @buff_ind: Represents the length. Index at which the next char is added.
+ * @buf_ind: Represents the length. Index at which the next char is added.
  */
 
-void print_buffer(char buffer[], int *buff_ind)
+void print_buffer(char buffer[], int *buf_ind)
 {
-	if (*buff_ind > 0)
-		write(1, &buffer[0], *buff_ind);
+	if (*buf_ind > 0)
+		write(1, &buffer[0], *buf_ind);
 
-	*buff_ind = 0;
+	*buf_ind = 0;
 }
